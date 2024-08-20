@@ -21,7 +21,10 @@ return new class extends Migration
             $table->string('bathrooms');
             $table->string('area');
             $table->string('property_type');
+            $table->string('property_sub_type');
+            $table->string('listing_type');
             $table->string('image');
+            $table->string('user_id');
             $table->string('created_by')->nullable();
             $table->string('status')->default(1);
             $table->string('type')->default(1);

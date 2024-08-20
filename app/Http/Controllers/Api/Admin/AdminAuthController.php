@@ -65,4 +65,20 @@ class AdminAuthController extends Controller
         }
     }
     //---end---
+
+      // Logout function
+      public function destroy(Request $request)
+      {
+          try {
+              if (!$request->user()) {
+                  return response()->json(['error' => 'Unauthorized', 'code' => 401], 401);
+              }
+      
+               $request->user()->token()->revoke();
+ 
+              return response()->json(['message' => 'Logged out successfully.', 'code' => 200], 200);
+          } catch (\Exception $e) {
+              return response()->json(['error' => 'Internal Server Error!', 'code' => 500], 500);
+          }
+      }
 }

@@ -54,7 +54,6 @@ class AuthController extends Controller
             ], 201);
 
         } catch (\Exception $e) {
-    
             return response()->json([
                 'message' => 'An error occurred while registering the user.',
                 'code' => 500,
@@ -121,5 +120,20 @@ class AuthController extends Controller
 }
 //---end---
 
+  // Logout function
+  public function destroy(Request $request)
+  {
+      try {
+        if (!$request->user()) {
+            return response()->json(['error' => 'Unauthorized', 'code' => 401], 401);
+        }
+
+         $request->user()->token()->revoke();
+
+        return response()->json(['message' => 'Logged out successfully.', 'code' => 200], 200);
+      } catch (\Exception $e) {
+        return response()->json(['error' => 'Internal Server Error!', 'code' => 500], 500);
+     }
+  }
     
 }

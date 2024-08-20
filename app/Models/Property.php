@@ -12,12 +12,17 @@ class Property extends Model
     protected $fillable = [
        'price',
        'bedrooms',
+       'bathrooms',
        'area',
        'description',
        'property_type',
+       'property_sub_type',
+       'listing_type',
        'type',
+       'image',
        'created_by',
-       'status'
+       'status',
+       'user_id'
     ];
 
     protected $hidden = [

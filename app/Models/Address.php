@@ -14,6 +14,7 @@ class Address extends Model
         'pincode',
         'city',
         'state',
+        'country',
         'created_by',
         'status',
         'type'
