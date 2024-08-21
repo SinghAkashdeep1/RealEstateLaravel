@@ -42,7 +42,7 @@ class PropertyAdminController extends Controller
         $address = Address::where('property_id', $id)->get();
         $user = User::find($property->user_id);
         return response()->json(['message' => 'Data Retrieve Successfully!', 'code' => 200, 'property' => $property, 'sub_images' => $sub_images,
-    'address' =>$address, 'user' =>$user], 200);
+        'address' =>$address, 'user' =>$user], 200);
     }
     //end
 

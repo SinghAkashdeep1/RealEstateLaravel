@@ -19,4 +19,5 @@ class Address extends Model
         'status',
         'type'
      ];
+
 }

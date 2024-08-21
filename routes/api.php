@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\Admin\PropertySubTypeController;
 use App\Http\Controllers\Api\User\PropertyController;
 use App\Http\Controllers\Api\Admin\PropertyAdminController;
 use App\Http\Controllers\Api\User\SearchController;
+use App\Http\Controllers\Api\User\UserAuthController;
 
 
 //Admin Pannel 
@@ -22,6 +23,8 @@ Route::post('admin/login',[AdminAuthController::class, 'adminLoginSubmit']);
 Route::post('admin/forgot-password', [AdminForgotPasswordController::class, 'submitAdminForgetPasswordForm']);
 Route::get('admin/reset-password/{token}', [AdminForgotPasswordController::class, 'showAdminResetPasswordForm']);
 Route::post('admin/reset-password', [AdminForgotPasswordController::class, 'submitAdminResetPasswordForm']);
+
+
 
 Route::group(['middleware' => ['auth:api']], function () {
     Route::group(['middleware' => ['role:Admin']], function () {
@@ -79,15 +82,16 @@ Route::post('/forgot-password', [ForgotPasswordController::class, 'submitForgetP
 Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm']);
 Route::post('/reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm']);
 
+Route::get('/type/property',[PropertyController::class, 'index']);
+Route::get('/list/properties',[PropertyController::class, 'propertyList']);
+Route::get('/property/detail/{id}',[PropertyAdminController::class, 'show']);
+Route::get('/search/property-types',[PropertyController::class, 'propertyTypes']);
 
 Route::group(['middleware' => ['auth:api']], function () {
     Route::group(['middleware' => ['role:User']], function () {
         Route::post('/logout',[AuthController::class, 'destroy']);
-        Route::get('/add/property',[PropertyController::class, 'index']);
+      
         Route::post('/add/property',[PropertyController::class, 'store']);
-        Route::get('/list/properties',[PropertyController::class, 'propertyList']);
-        Route::get('/property/detail/{id}',[PropertyAdminController::class, 'show']);
-
+       
     });
-
 });
