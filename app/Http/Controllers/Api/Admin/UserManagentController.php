@@ -15,12 +15,27 @@ class UserManagentController extends Controller
     public function index()
     {
         try {
-            $users = User::where('type', '2')->orWhere('type', '3')->get();
-            return response()->json(['message' => 'Data Retrieve Successfully!', 'code' => 200 ,'users' => $users], 200);
+            // Set the number of items per page
+            $perPage = 10;
+    
+            // Use paginate to get paginated results
+            $users = User::where('type', '2')->orWhere('type', '3')->paginate($perPage);
+    
+            // Return the paginated results in the response
+            return response()->json([
+                'message' => 'Data Retrieve Successfully!',
+                'code' => 200,
+                'users' => $users
+            ], 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Internal Server Error!' , 'code' => 500], 500);
+            // Handle any exceptions and return an error response
+            return response()->json([
+                'error' => 'Internal Server Error!',
+                'code' => 500
+            ], 500);
         }
     }
+    
 
      // Display the user add page with accessing Roles
      public function create()
